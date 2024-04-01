@@ -14,7 +14,7 @@ app.listen(port, () => {
 
 
 monday.setApiVersion("2023-10");
-monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMzOTA4NTMyOCwiYWFpIjoxMSwidWlkIjo1Nzg2NDg0NiwiaWFkIjoiMjAyNC0wMy0yOFQwNToyNToxOS44MDVaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjIyMzYwMjgsInJnbiI6ImFwc2UyIn0.auEsxHcJyH6ZPf-MpmAMVGsYdTBkztfFiJMOL3zPhpo');
+monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjM0MDI5NzEzNywiYWFpIjoxMSwidWlkIjo1ODAzNzI3MywiaWFkIjoiMjAyNC0wNC0wMVQxMDoyOToxNi4wNTlaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjIzNDUxMTMsInJnbiI6ImFwc2UyIn0.0niuu_YVgdJhT3TWT8EGXVdVFbZwYujLlTKy9ksJTME');
 
 app.get('/api/users', (req, response) => {
   monday.api(`
@@ -48,6 +48,40 @@ app.get('/api/accounts', (req, response) => {
             name
           }
         }  
+
+        groups {
+          title
+          id
+        }
+      }
+    }  
+  `).then(res => {
+    response.json(res)
+  });   
+});
+
+app.get('/api/test', (req, response) => {
+  monday.api(`
+    query {
+      me {
+        name
+      }
+      boards(ids:[1856897353,1856897355]) {
+        name
+    
+        items_page {
+          items {
+            id
+            name
+            column_values {
+              column {
+                title
+              }
+              text
+              value
+            }
+          }
+        } 
 
         groups {
           title
